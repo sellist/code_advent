@@ -20,23 +20,22 @@ class Part1:
                 return None
             return result.group(1), int(result.group(2))
 
-        combo_values = [i for i in list(range(0,100))]
-        start_idx = combo_values.index(50)
+        combo_values = [i for i in list(range(0, 100))]
+        current_position = combo_values.index(50)
         zero_count = 0
 
-        n = len(combo_values)
+        dial_size = len(combo_values)
 
         for line in file_lines:
-            parsed = parse(line)
 
-            turn, val = parsed
-            if turn == "L":
-                start_idx = (start_idx - val) % n
-            elif turn == "R":
-                start_idx = (start_idx + val) % n
+            direction, rotation_amount = parse(line)
+            if direction == "L":
+                current_position = (current_position - rotation_amount) % dial_size
+            elif direction == "R":
+                current_position = (current_position + rotation_amount) % dial_size
             else:
                 continue
-            if start_idx == 0:
+            if current_position == 0:
                 zero_count += 1
 
         return zero_count
@@ -78,7 +77,9 @@ class Part2:
                 zero_count += rotation_amount // dial_size
                 current_position = (current_position + rotation_amount) % dial_size
 
+        # this is the wrong answer, flip the last two digits to get right answer? input by accident
         return zero_count
+
 
 if __name__ == "__main__":
     with open("input.txt", "r") as file:
@@ -86,6 +87,3 @@ if __name__ == "__main__":
 
     print(f"Part 1: {Part1.solution(f)}")
     print(f"Part 2: {Part2.solution(f)}")
-
-
-
