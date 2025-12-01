@@ -4,14 +4,6 @@ import re
 class Part1:
     @staticmethod
     def solution(file_lines: list[str]) -> int:
-        """
-
-        Args:
-            file_lines: List of lines from input file
-
-        Returns:
-
-        """
 
         def parse(s: str):
             pat = re.compile(r"^([LR])(\d+)$")
@@ -44,14 +36,6 @@ class Part1:
 class Part2:
     @staticmethod
     def solution(file_lines: list[str]) -> int:
-        """
-
-        Args:
-            file_lines: List of lines from input file
-
-        Returns:
-
-        """
 
         def parse(s: str):
             m = re.compile(r"^([LR])(\d+)$").match(s.strip())
@@ -77,7 +61,6 @@ class Part2:
                 zero_count += rotation_amount // dial_size
                 current_position = (current_position + rotation_amount) % dial_size
 
-        # this is the wrong answer, flip the last two digits to get right answer? input by accident
         return zero_count
 
 
