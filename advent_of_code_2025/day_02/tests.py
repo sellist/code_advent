@@ -1,9 +1,5 @@
 import solution as s
 
-with open("input.txt", "r") as file:
-    inp = file.readlines()
-
-
 def test_part1_1():
     assert s.Part1.solution(['']) == 0
 
@@ -17,11 +13,11 @@ def test_part1_3():
 
 
 def test_part2_1():
-    assert s.Part2.solution(['']) == 0
+    assert s.Part2.solution(['775775-779779']) == 2336334
 
 
 def test_part2_2():
-    assert s.Part2.solution(['']) == 0
+    assert s.Part2.solution(['824824821-824824827']) == 824824824
 
 
 def test_part2_3():

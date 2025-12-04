@@ -179,3 +179,65 @@ class GridDict(Generic[T]):
         if self.check_in_bounds(x, y):
             self.coord_dict[(y, x)] = value
             self.matrix[y][x] = value
+
+
+class StringUtils:
+    """
+    class to represent common algorithms used in string processing, i.e. longest common substring
+    """
+
+    @staticmethod
+    def longest_duplicate_substring(string: str) -> str | None:
+        """
+        Args:
+            string: string to check for longest substring in
+
+        Returns: found substring if repeated, None if no repeating is found
+        """
+
+        def has_duplicate_of_length(length: int) -> str | None:
+            if length == 0:
+                return None
+
+            base = 256
+            mod = 2 ** 32 - 1
+
+            hash_val = 0
+            power = 1
+            for i in range(length):
+                hash_val = (hash_val * base + ord(string[i])) % mod
+                if i < length - 1:
+                    power = (power * base) % mod
+
+            seen_hashes = {hash_val: 0}
+
+            for i in range(1, len(string) - length + 1):
+                hash_val = (hash_val - ord(string[i - 1]) * power) % mod
+                hash_val = (hash_val * base + ord(string[i + length - 1])) % mod
+
+                if hash_val in seen_hashes:
+                    current_substr = string[i:i + length]
+                    prev_start = seen_hashes[hash_val]
+                    prev_substr = string[prev_start:prev_start + length]
+                    if current_substr == prev_substr:
+                        return current_substr
+
+                seen_hashes[hash_val] = i
+
+            return None
+
+        left, right = 0, len(string) - 1
+        result = None
+
+        while left <= right:
+            mid = (left + right) // 2
+            duplicate = has_duplicate_of_length(mid)
+
+            if duplicate is not None:
+                result = duplicate
+                left = mid + 1
+            else:
+                right = mid - 1
+
+        return result
+
